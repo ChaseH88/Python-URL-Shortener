@@ -2,12 +2,18 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
+key_value_store = {}
+
 @app.route("/")
 def main():
-    key = request.args.get('key', default=None, type=str)
+    url = request.args.get('url', default=None, type=str)
+
+    if url is not None:
+        key_value_store[url] = ""
 
     return {
-        "key": key
+        "url": url,
+        "key_value_store": key_value_store
     }
 
 if __name__ == "__main__":
