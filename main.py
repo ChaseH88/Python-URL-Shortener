@@ -14,17 +14,25 @@ def generate_random_string(length=5):
 @app.route("/")
 def main():
     url = request.args.get('url', default=None, type=str)
-
-    if len(url) == 5:
-      for key, value in key_value_store.items():
-        if value == url:
-          print("Redirecting to: ", key)
-          return redirect(key)
-
-    if url is not None and url not in key_value_store:
-        key_value_store[url] = generate_random_string(5)
-
-    return key_value_store[url]
+    
+    if url is not None:
+        
+        if len(url) == 5:
+            for key, value in key_value_store.items():
+                if value == url:
+                    print("Redirecting to: ", key)
+                    return redirect(key)
+            return "Invalid URL"
+        
+        elif url not in key_value_store and len(url) > 0:
+            key_value_store[url] = generate_random_string(5)
+            return key_value_store[url]
+        
+        elif len(url) == 0:
+            return "Invalid URL"
+        
+    else:
+        return "No URL provided"
 
 if __name__ == "__main__":
     app.run(debug=True)
