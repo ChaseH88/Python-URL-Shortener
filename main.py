@@ -27,12 +27,16 @@ def main():
         elif url not in key_value_store and len(url) > 0:
             key_value_store[url] = generate_random_string(5)
             return key_value_store[url]
+
+        elif url in key_value_store:
+            return key_value_store[url]
         
         elif len(url) == 0:
             return "Invalid URL"
         
     else:
         return "No URL provided"
+
 
 if __name__ == "__main__":
     app.run(debug=True)
