@@ -2,7 +2,7 @@ from flask import request, redirect, render_template
 from utils import generate_random_string
 from store import store
 
-def main():
+def make_short_url():
     url = request.args.get('url', default=None, type=str)
 
     if url is not None:
@@ -24,5 +24,5 @@ def redirect_to_url(key):
             return redirect(original_url)
     return "Invalid URL"
 
-def serve_ui():
+def serve_home_page():
     return render_template('index.html')
