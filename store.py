@@ -1,5 +1,3 @@
-key_value_store = {}
-
 class Store:
     def __init__(self):
         self.key_value_store = {}
