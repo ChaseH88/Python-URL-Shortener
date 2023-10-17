@@ -3,14 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>My App</title>
-    <script>
-        function greet() {
-            alert('Hello, world!');
+    <script>        
+        const handleFormSubmit = (e) => {
+            e.preventDefault();
+            const url = e.target.url.value;
+            fetch(`/?url=${url}`)
+            .then(res => res.text())
+            .then(text => {
+                const result = document.getElementById('result');
+                const url = `${window.location.origin}/${text}`;
+                result.innerHTML = `<a href="${url}">${url}</a>`;
+            })
+            .catch(err => console.log(err))
         }
+
     </script>
 </head>
 <body>
-    <h1>URL Shortener</h1>
-    <button onclick="greet()">Test</button>
+    <div id="page">
+        <div class="container">
+            <div class="wrapper">
+                <div class="title">
+                    <h1>
+                        <a href="/">URL Shortener</a>
+                    </h1>
+                </div>
+                <div class="content">
+                    <form action="/" onsubmit="handleFormSubmit(event)">
+                        <input type="text" name="url" placeholder="Enter a URL here" />
+                        <input type="submit" value="Shorten" />
+                    </form>
+                </div>
+                <div class="result">
+                    <div id="result"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
