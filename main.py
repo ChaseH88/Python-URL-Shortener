@@ -16,27 +16,22 @@ def main():
     url = request.args.get('url', default=None, type=str)
     
     if url is not None:
-        
-        if len(url) == 5:
-            for key, value in key_value_store.items():
-                if value == url:
-                    print("Redirecting to: ", key)
-                    return redirect(key)
-            return "Invalid URL"
-        
-        elif url not in key_value_store and len(url) > 0:
+        if url not in key_value_store and len(url) > 0:
             key_value_store[url] = generate_random_string(5)
             return key_value_store[url]
-
         elif url in key_value_store:
             return key_value_store[url]
-        
-        elif len(url) == 0:
+        else:
             return "Invalid URL"
-        
     else:
         return "No URL provided"
 
+@app.route("/<key>")
+def redirect_to_url(key):
+    for original_url, stored_key in key_value_store.items():
+        if stored_key == key:
+            return redirect(original_url)
+    return "Invalid URL"
 
 if __name__ == "__main__":
     app.run(debug=True)
