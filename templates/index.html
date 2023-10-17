@@ -7,7 +7,7 @@
         const handleFormSubmit = (e) => {
             e.preventDefault();
             const url = e.target.url.value;
-            fetch(`/?url=${url}`)
+            fetch(`/ui?url=${url}`)
             .then(res => res.text())
             .then(text => {
                 const result = document.getElementById('result');
