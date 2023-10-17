@@ -1,15 +1,9 @@
 from flask import Flask, request, redirect
-import random
-import string
+from utils import generate_random_string
 
 app = Flask(__name__)
 
 key_value_store = {}
-
-def generate_random_string(length=5):
-    letters = string.ascii_letters + string.digits
-    result_str = ''.join(random.choice(letters) for i in range(length))
-    return result_str
 
 @app.route("/")
 def main():
