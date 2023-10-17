@@ -1,4 +1,4 @@
-from flask import request, redirect
+from flask import request, redirect, render_template
 from utils import generate_random_string
 from store import store
 
@@ -23,3 +23,6 @@ def redirect_to_url(key):
         if stored_key == key:
             return redirect(original_url)
     return "Invalid URL"
+
+def serve_ui():
+    return render_template('index.html')
